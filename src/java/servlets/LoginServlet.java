@@ -52,18 +52,30 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String logout = request.getParameter("logout");
         if(logout!= null){
-            session.invalidate();
-            session = request.getSession();
-             String message2 = "you have logged out successfully";
+         session.invalidate();
+         String message2 = "you have logged out successfully";
         request.setAttribute("message2", message2);
+         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+    
         }
-       
-        
-       
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        
+        else if(session.getAttribute("name") != null){
+            response.sendRedirect("home");
+        }
+        else{
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
+     
+  
     }
+        
+        
+       
+        
+       
+        
+      
+        
+    
 
    
     @Override
